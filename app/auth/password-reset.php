@@ -1,7 +1,10 @@
-<?php include('path.php'); ?>
-<?php include(ROOT_PATH . "/app/controllers/users.php"); 
-guestsOnly();
+<?php
+include("../../path.php");
+
+include(ROOT_PATH . "/app/controllers/users.php");
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +21,7 @@ guestsOnly();
   <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
 
   <!-- Custom Styling -->
-  <link rel="stylesheet" href="http://localhost/gecblogs/assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
 
   <title>Login</title>
 </head>
@@ -29,26 +32,20 @@ guestsOnly();
 
   <div class="auth-content">
 
-    <form action="login.php" method="post">
+    <form action="password-reset-code.php" method="post">
       <h2 class="form-title">Login</h2>
 
       <?php include(ROOT_PATH . "/app/helpers/formErrors.php"); ?>
+        <div>
+        <label>Email</label>
+        <input type="email" name="email" value="<?php echo $email; ?>" class="text-input">
+        </div>
 
+      
       <div>
-        <label>Username</label>
-        <input type="text" name="username" value="<?php echo $username; ?>" class="text-input">
+        <button type="submit" name="resetpassbtn" class="btn btn-big ">Reset</button>
       </div>
-      <div>
-        <label>Password</label>
-        <input type="password" name="password" value="<?php echo $password; ?>" class="text-input">
-      </div>
-      <div>
-        <button type="submit" name="login-btn" class="btn btn-big ">Login</button>
-      </div>
-      <p>Don't have an account? <a href="<?php echo BASE_URL . '/register.php' ?>">Sign Up</a></p>
-    <p>or</p>
-      <p>Forgot your password? <a href="<?php echo BASE_URL . '/app/auth/password-reset.php' ?>">Reset password</a></p>
-    </form>
+      </form>
 
   </div>
 
