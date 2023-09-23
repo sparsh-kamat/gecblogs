@@ -5,9 +5,10 @@
 
 
     $errors = array();
+    $success = array();
     $email = '';
 
-    include(ROOT_PATH . "/resetpassemail.php");
+    include(ROOT_PATH . "/app/helpers/email/emailhelper.php");
     
     if(isset($_POST['resetpassbtn'])){
         $email = $_POST['email'];
@@ -25,7 +26,7 @@
             if($update_query_run)
             {
                 send_password_reset($email, $token);
-                array_push($errors, "Password reset link sent to your email");
+                array_push($success, "Password reset link sent to your email");
                 
     
             }

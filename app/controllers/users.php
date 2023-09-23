@@ -10,6 +10,7 @@ $table = 'users';
 $admin_users = selectAll($table);
 
 $errors = array();
+$success = array();
 $id = '';
 $username = '';
 $admin = '';

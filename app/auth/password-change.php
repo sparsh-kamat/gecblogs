@@ -20,9 +20,8 @@ if (isset($_POST['changepass'])) {
             $update_query_run = mysqli_query($conn, $update_query);
 
             if ($update_query_run) {
-                array_push($errors, "Password changed successfully");
-                header('location: ' . BASE_URL . '/login.php');
-                exit();
+                array_push($success, "Password changed successfully");
+                
             } else {
                 array_push($errors, "Something went wrong. Please try again.");
             }

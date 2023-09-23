@@ -35,6 +35,7 @@ guestsOnly();
   $admin_users = selectAll($table);
 
   $errors = array();
+  $success = array();
   $id = '';
   $username = '';
   $admin = '';
@@ -42,35 +43,8 @@ guestsOnly();
   $password = '';
   $passwordConf = '';
 
-  use PHPMailer\PHPMailer\PHPMailer;
-  use PHPMailer\PHPMailer\SMTP;
-  use PHPMailer\PHPMailer\Exception;
-
-  require 'vendor/autoload.php';
-  function sendemailverify($username, $email, $token)
-  {
-    $mail = new PHPMailer(true);
-
-    $mail->isSMTP();
-    $mail->SMTPAuth = true;
-
-    $mail->Host = 'smtp.gmail.com';
-    $mail->Username = 'gecblogs@gmail.com';
-    $mail->Password = 'wjgxqffmewhllhtd';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
-    $mail->setFrom('gecblogs@gmail.com', 'GEC Blogs');
-    $mail->addAddress($email);
-    $mail->isHTML(true);
-    $mail->Subject = 'Email Verification';
-    $email_template = "
-        <h2>Thank you for registering with us</h2>
-        <p>Click the link below to verify your email address</p>
-        <a href='http://localhost/gecblogs/verifyemail.php?token=$token'>Verify Email</a>
-        ";
-    $mail->Body = $email_template;
-    $mail->send();
-  }
+  include(ROOT_PATH . "/app/helpers/email/emailhelper.php");
+  
 
   if (isset($_POST['register-btn'])) {
     $errors = validateUser($_POST);
@@ -96,7 +70,7 @@ guestsOnly();
 
         if ($query_run) {
           sendemailverify($username, $email, $token);
-          array_push($errors, 'Email has been sent to your email address');
+          array_push($success, 'Email has been sent to your email address');
         }
       } else {
         $username = $_POST['username'];
