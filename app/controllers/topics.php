@@ -7,6 +7,7 @@ include(ROOT_PATH . "/app/helpers/validateTopic.php");
 $table = 'topics';
 
 $errors = array();
+$success = array();
 $id = '';
 $name = '';
 $description = '';

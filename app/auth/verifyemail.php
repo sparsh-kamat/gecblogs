@@ -1,4 +1,4 @@
-<?php include(ROOT_PATH . "path.php"); ?>
+<?php include("../../path.php"); ?>
 <?php include(ROOT_PATH . "/app/database/db.php");
 
 

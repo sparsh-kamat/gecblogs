@@ -11,6 +11,7 @@ $posts = selectAll($table);
 
 
 $errors = array();
+$success = array();
 $id = "";
 $title = "";
 $body = "";
