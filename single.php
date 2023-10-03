@@ -27,7 +27,9 @@ $posts = selectAll('posts', ['published' => 1]);
   <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <title><?php echo $post['title']; ?> | AwaInspires</title>
+  <title>
+    <?php echo $post['title']; ?> | GEC Blogs
+  </title>
 </head>
 
 <body>
@@ -35,7 +37,7 @@ $posts = selectAll('posts', ['published' => 1]);
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous"
     src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=285071545181837&autoLogAppEvents=1">
-  </script>
+    </script>
 
   <?php include(ROOT_PATH . "/app/includes/header.php"); ?>
 
@@ -48,8 +50,13 @@ $posts = selectAll('posts', ['published' => 1]);
       <!-- Main Content Wrapper -->
       <div class="main-content-wrapper">
         <div class="main-content single">
-          <h1 class="post-title"><?php echo $post['title']; ?></h1>
-
+          <h1 class="post-title">
+            <?php echo $post['title']; ?>
+          </h1>
+          <!-- image -->
+          <div class="post-image-single">
+            <img src="<?php echo BASE_URL . '/assets/images/' . $post['image']; ?>" alt="" id="post-image-single">
+          </div>
           <div class="post-content">
             <?php echo html_entity_decode($post['body']); ?>
           </div>
@@ -61,10 +68,10 @@ $posts = selectAll('posts', ['published' => 1]);
       <!-- Sidebar -->
       <div class="sidebar single">
 
-        <div class="fb-page" data-href="https://web.facebook.com/codingpoets/" data-small-header="false"
-          data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-          <blockquote cite="https://web.facebook.com/codingpoets/" class="fb-xfbml-parse-ignore"><a
-              href="https://web.facebook.com/codingpoets/">Coding Poets</a></blockquote>
+        <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=61552188862829"
+          data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+          <blockquote cite="https://www.facebook.com/profile.php?id=61552188862829" class="fb-xfbml-parse-ignore"><a
+              href="https://www.facebook.com/profile.php?id=61552188862829"></a></blockquote>
         </div>
 
 
@@ -75,11 +82,13 @@ $posts = selectAll('posts', ['published' => 1]);
             <div class="post clearfix">
               <img src="<?php echo BASE_URL . '/assets/images/' . $p['image']; ?>" alt="">
               <a href="" class="title">
-                <h4><?php echo $p['title'] ?></h4>
+                <h4>
+                  <?php echo $p['title'] ?>
+                </h4>
               </a>
             </div>
           <?php endforeach; ?>
-          
+
 
         </div>
 
@@ -87,7 +96,9 @@ $posts = selectAll('posts', ['published' => 1]);
           <h2 class="section-title">Topics</h2>
           <ul>
             <?php foreach ($topics as $topic): ?>
-              <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name'] ?>"><?php echo $topic['name']; ?></a></li>
+              <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name'] ?>">
+                  <?php echo $topic['name']; ?>
+                </a></li>
             <?php endforeach; ?>
 
           </ul>
@@ -116,3 +127,15 @@ $posts = selectAll('posts', ['published' => 1]);
 </body>
 
 </html>
+
+<style>
+ 
+   #post-image-single {
+    width: 50vh;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>

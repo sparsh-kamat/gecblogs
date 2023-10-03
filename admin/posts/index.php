@@ -65,7 +65,10 @@ adminOnly();
                                 <tr>
                                     <td><?php echo $key + 1; ?></td>
                                     <td><?php echo $post['title'] ?></td>
-                                    <td>Awa</td>
+                                    <!-- find username for the user with id = $post['user_id']  in the table users -->
+                                    <?php $user = selectOne('users', ['id' => $post['user_id']]) ?>
+                                    <td><?php echo $user['username'] ?></td>
+                                    
                                     <td><a href="edit.php?id=<?php echo $post['id']; ?>" class="edit">edit</a></td>
                                     <td><a href="edit.php?delete_id=<?php echo $post['id']; ?>" class="delete">delete</a></td>
 

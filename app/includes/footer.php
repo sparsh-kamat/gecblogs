@@ -42,7 +42,7 @@
       </div>
 
       <div class="footer-section contact-form">
-        <h2>Contact us</h2>
+        <h2>Sign Up for Notifications!</h2>
         <br>
         <form action="index.html" method="post">
           <input type="email" name="email" class="text-input contact-input" placeholder="Your email address...">

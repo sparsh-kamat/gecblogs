@@ -1,5 +1,5 @@
 <?php include('path.php'); ?>
-<?php include(ROOT_PATH . "/app/controllers/users.php"); 
+<?php include(ROOT_PATH . "/app/controllers/users.php");
 guestsOnly();
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ guestsOnly();
 
 <body>
 
-<?php include(ROOT_PATH . "/app/includes/header.php"); ?>
+  <?php include(ROOT_PATH . "/app/includes/header.php"); ?>
 
   <div class="auth-content">
 
@@ -46,7 +46,7 @@ guestsOnly();
         <button type="submit" name="login-btn" class="btn btn-big ">Login</button>
       </div>
       <p>Don't have an account? <a href="<?php echo BASE_URL . '/register.php' ?>">Sign Up</a></p>
-    <p>or</p>
+      <p>or</p>
       <p>Forgot your password? <a href="<?php echo BASE_URL . '/app/auth/password-reset.php' ?>">Reset password</a></p>
     </form>
 
@@ -62,3 +62,14 @@ guestsOnly();
 </body>
 
 </html>
+
+<style>
+  .btn.btn-big {
+    padding-top: 10px;
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+</style>

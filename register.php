@@ -44,7 +44,7 @@ guestsOnly();
   $passwordConf = '';
 
   include(ROOT_PATH . "/app/helpers/email/emailhelper.php");
-  
+
 
   if (isset($_POST['register-btn'])) {
     $errors = validateUser($_POST);
@@ -96,19 +96,22 @@ guestsOnly();
 
       <div>
         <label>Username</label>
-        <input type="text" name="username" value="<?php echo $username; ?>" class="text-input">
+        <input type="text" name="username" value="<?php echo $username; ?>" class="text-input contact-input"
+          placeholder="">
       </div>
       <div>
         <label>Email</label>
-        <input type="email" name="email" value="<?php echo $email; ?>" class="text-input">
+        <input type="email" name="email" value="<?php echo $email; ?>" class="text-input contact-input" placeholder="">
       </div>
       <div>
         <label>Password</label>
-        <input type="password" name="password" value="<?php echo $password; ?>" class="text-input">
+        <input type="password" name="password" value="<?php echo $password; ?>" class="text-input contact-input"
+          placeholder="">
       </div>
       <div>
         <label>Password Confirmation</label>
-        <input type="password" name="passwordConf" value="<?php echo $passwordConf; ?>" class="text-input">
+        <input type="password" name="passwordConf" value="<?php echo $passwordConf; ?>" class="text-input contact-input"
+          placeholder="">
       </div>
       <div>
         <button type="submit" name="register-btn" class="btn btn-big">Register</button>
@@ -128,3 +131,14 @@ guestsOnly();
 </body>
 
 </html>
+
+<style>
+  .btn.btn-big {
+    padding-top: 10px;
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+</style>

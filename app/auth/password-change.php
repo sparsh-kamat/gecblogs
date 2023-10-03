@@ -21,7 +21,7 @@ if (isset($_POST['changepass'])) {
 
             if ($update_query_run) {
                 array_push($success, "Password changed successfully");
-                
+
             } else {
                 array_push($errors, "Something went wrong. Please try again.");
             }
@@ -98,3 +98,13 @@ if (isset($_POST['changepass'])) {
 </body>
 
 </html>
+<style>
+    .btn.btn-big {
+        padding-top: 10px;
+        margin-top: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+</style>
