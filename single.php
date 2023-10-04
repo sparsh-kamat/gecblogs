@@ -1,9 +1,11 @@
-<?php include("path.php"); ?>
-<?php include(ROOT_PATH . '/app/controllers/posts.php');
+<?php include("path.php");
+include(ROOT_PATH . '/app/controllers/posts.php');
+
 
 if (isset($_GET['id'])) {
   $post = selectOne('posts', ['id' => $_GET['id']]);
 }
+
 $topics = selectAll('topics');
 $posts = selectAll('posts', ['published' => 1]);
 
@@ -13,29 +15,29 @@ $sql = "SELECT * FROM comments WHERE post_id=$post_id";
 $result = mysqli_query($conn, $sql);
 $comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+
+$likes = selectAll('likes', ['post_id' => $post_id, 'liked' => 1]);
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
-
-  <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- comments css -->
   <link rel="stylesheet" href="assets/css/comments.css">
   <title>
     <?php echo $post['title']; ?> | GEC Blogs
   </title>
+
 </head>
 
 <body>
@@ -46,14 +48,9 @@ $comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
     </script>
 
   <?php include(ROOT_PATH . "/app/includes/header.php"); ?>
-
   <!-- Page Wrapper -->
   <div class="page-wrapper">
-
-    <!-- Content -->
     <div class="content clearfix">
-
-      <!-- Main Content Wrapper -->
       <div class="main-content-wrapper">
         <div class="main-content single">
           <h1 class="post-title">
@@ -66,14 +63,33 @@ $comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
           <div class="post-content">
             <?php echo html_entity_decode($post['body']); ?>
           </div>
-          <!-- add a comments div with 3 hardcoded comments to style the css properly -->
-          <div class="comments-wrapper">
 
+
+
+          <div class="like-wrapper">
+          <?php if (isset($_SESSION['id'])): ?>
+            <form action="http://localhost/gecblogs/app/controllers/likes.php" method="post">
+              <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
+              <button type="submit" class="btn btn-big like-btn" name="like-btn">
+                <i class="fas fa-thumbs-up"></i>
+              </button>
+              <?php else: ?>
+                <button type="submit" class="btn btn-big like-btn" name="like-btn" disabled>
+                  <i class="fas fa-thumbs-up"></i>
+                </button>
+              <?php endif ?>
+              <span class="likes"><?php echo count($likes); ?></span>
+
+          </div>
+
+
+          <div class="comments-wrapper">
             <div class="comments" id="comments">
               <h2>Comments</h2>
-              
+
+
               <?php if (isset($_SESSION['id'])): ?>
-                <form action="single.php" method="post" id="comment_form">
+                <form action="http://localhost/gecblogs/app/controllers/comments.php" class="comment-form" method="post">
                   <input type="hidden" name="post_id" id="post_id" value="<?php echo $post['id']; ?>">
                   <textarea name="comment" id="comment" cols="30" rows="5" placeholder=" Add a comment"></textarea>
                   <button type="submit" class="btn btn-big" name="comment_posted">Post comment</button>
@@ -82,6 +98,7 @@ $comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <h2 style="text-align: center; margin-top: 20px;">You need to <a href="login.php">login</a> or <a
                     href="register.php">register</a> to add a comment</h2>
               <?php endif ?>
+
 
               <div class="comments">
                 <h2><span id="comments_count">
@@ -118,33 +135,6 @@ $comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <?php else: ?>
                   <h2>Be the first to comment on this post</h2>
                 <?php endif ?>
-
-
-
-                <!-- <div class="comment">
-                  <img src="assets/images/profile.png" alt="" class="profile-image">
-                  <div class="comment-info">
-                    <h4>John</h4>
-                    <span>3 days ago</span>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
-                  </div>
-                </div>
-                <div class="comment">
-                  <img src="assets/images/profile.png" alt="" class="profile-image">
-                  <div class="comment-info">
-                    <h4>Mary</h4>
-                    <span>3 days ago</span>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
-                  </div>
-                </div>
-                <div class="comment">
-                  <img src="assets/images/profile.png" alt="" class="profile-image">
-                  <div class="comment-info">
-                    <h4>John</h4>
-                    <span>3 days ago</span>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
-                  </div>
-                </div> -->
 
               </div>
             </div>
