@@ -7,6 +7,11 @@ if (isset($_GET['id'])) {
 $topics = selectAll('topics');
 $posts = selectAll('posts', ['published' => 1]);
 
+$post_id = $_GET['id'];
+// get comments from database
+$sql = "SELECT * FROM comments WHERE post_id=$post_id";
+$result = mysqli_query($conn, $sql);
+$comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +31,8 @@ $posts = selectAll('posts', ['published' => 1]);
 
   <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/style.css">
-
+  <!-- comments css -->
+  <link rel="stylesheet" href="assets/css/comments.css">
   <title>
     <?php echo $post['title']; ?> | GEC Blogs
   </title>
@@ -60,10 +66,98 @@ $posts = selectAll('posts', ['published' => 1]);
           <div class="post-content">
             <?php echo html_entity_decode($post['body']); ?>
           </div>
+          <!-- add a comments div with 3 hardcoded comments to style the css properly -->
+          <div class="comments-wrapper">
 
+            <div class="comments" id="comments">
+              <h2>Comments</h2>
+              
+              <?php if (isset($_SESSION['id'])): ?>
+                <form action="single.php" method="post" id="comment_form">
+                  <input type="hidden" name="post_id" id="post_id" value="<?php echo $post['id']; ?>">
+                  <textarea name="comment" id="comment" cols="30" rows="5" placeholder=" Add a comment"></textarea>
+                  <button type="submit" class="btn btn-big" name="comment_posted">Post comment</button>
+                </form>
+              <?php else: ?>
+                <h2 style="text-align: center; margin-top: 20px;">You need to <a href="login.php">login</a> or <a
+                    href="register.php">register</a> to add a comment</h2>
+              <?php endif ?>
+
+              <div class="comments">
+                <h2><span id="comments_count">
+                    <?php echo count($comments) ?>
+                  </span> Comment(s)</h2>
+                <hr>
+
+                <?php if (isset($comments)): ?>
+                  <?php foreach ($comments as $comment): ?>
+                    <?php
+                    //username of user who commented
+                    $comment_user_id = $comment['user_id'];
+                    //use selectOne function to get user details
+                    $comment_user = selectOne('users', ['id' => $comment_user_id]);
+                    //echo username
+                    ?>
+                    <div class="comment">
+                      <img src="assets/images/profile.png" alt="" class="profile-image">
+                      <div class="comment-info">
+                        <h4>
+                          <?php echo $comment_user['username']; ?>
+                        </h4>
+                        <span>
+                          <?php echo date("F j, Y ", strtotime($comment["created_at"])); ?>
+                        </span>
+                        <p>
+                          <?php echo $comment['comment']; ?>
+                        </p>
+                      </div>
+                    </div>
+                  <?php endforeach ?>
+
+
+                <?php else: ?>
+                  <h2>Be the first to comment on this post</h2>
+                <?php endif ?>
+
+
+
+                <!-- <div class="comment">
+                  <img src="assets/images/profile.png" alt="" class="profile-image">
+                  <div class="comment-info">
+                    <h4>John</h4>
+                    <span>3 days ago</span>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+                  </div>
+                </div>
+                <div class="comment">
+                  <img src="assets/images/profile.png" alt="" class="profile-image">
+                  <div class="comment-info">
+                    <h4>Mary</h4>
+                    <span>3 days ago</span>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+                  </div>
+                </div>
+                <div class="comment">
+                  <img src="assets/images/profile.png" alt="" class="profile-image">
+                  <div class="comment-info">
+                    <h4>John</h4>
+                    <span>3 days ago</span>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+                  </div>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- // Main Content -->
+
+      <style>
+
+
+      </style>
+
 
       <!-- Sidebar -->
       <div class="sidebar single">
@@ -129,8 +223,7 @@ $posts = selectAll('posts', ['published' => 1]);
 </html>
 
 <style>
- 
-   #post-image-single {
+  #post-image-single {
     width: 50vh;
     height: auto;
     margin-bottom: 20px;
