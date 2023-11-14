@@ -1,3 +1,5 @@
+<!-- comments.php controller -->
+
 <?php
 //include path.php file
 include("../../path.php");

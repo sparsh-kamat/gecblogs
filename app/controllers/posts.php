@@ -31,6 +31,12 @@ if (isset($_GET['id'])) {
 if (isset($_GET['delete_id'])) {
     adminOnly();
     $count = delete($table, $_GET['delete_id']);
+    // also delete comments  from comments table and likes from likes table with post id is same
+    $sql = "DELETE FROM comments WHERE post_id=" . $_GET['delete_id'];
+    $result = mysqli_query($conn, $sql);
+    $sql = "DELETE FROM likes WHERE post_id=" . $_GET['delete_id'];
+    $result = mysqli_query($conn, $sql);
+
     $_SESSION['message'] = "Post deleted successfully";
     $_SESSION['type'] = "success";
     header("location: " . BASE_URL . "/admin/posts/index.php"); 

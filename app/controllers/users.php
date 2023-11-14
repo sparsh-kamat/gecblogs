@@ -128,6 +128,14 @@ if (isset($_POST['login-btn'])) {
 if (isset($_GET['delete_id'])) {
     adminOnly();
     $count = delete($table, $_GET['delete_id']);
+    //delete the posts and comments of the user
+    $sql = "DELETE FROM posts WHERE user_id = ".$_GET['delete_id'];
+    $result = mysqli_query($conn, $sql);
+    $sql = "DELETE FROM comments WHERE user_id = ".$_GET['delete_id'];
+    $result = mysqli_query($conn, $sql);
+    //likes
+    $sql = "DELETE FROM likes WHERE user_id = ".$_GET['delete_id'];
+    $result = mysqli_query($conn, $sql);
     $_SESSION['message'] = 'Admin user deleted';
     $_SESSION['type'] = 'success';
     header('location: ' . BASE_URL . '/admin/users/index.php'); 

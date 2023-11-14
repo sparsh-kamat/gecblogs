@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GIS Example</title>
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+
+</body>
+</html>
  <!-- footer -->
  <div class="footer">
     <div class="footer-content">
@@ -20,25 +31,25 @@
       </div>
 
       <div class="footer-section links">
-        <h2>Quick Links</h2>
-        <br>
-        <ul>
-          <a href="#">
-            <li>Events</li>
-          </a>
-          <a href="#">
-            <li>Team</li>
-          </a>
-          <a href="#">
-            <li>Mentores</li>
-          </a>
-          <a href="#">
-            <li>Gallery</li>
-          </a>
-          <a href="#">
-            <li>Terms and Conditions</li>
-          </a>
-        </ul>
+            <!-- Create a map container -->
+    <div id="map" style="height: 310px; border: 2px solid #303036; border-radius:5px; box-shadow: 0 0 10px black"></div>
+
+<!-- Include Leaflet JavaScript library -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script>
+    // Initialize a map
+    var map = L.map('map').setView([15.422045, 73.980625], 13);
+
+    // Add a tile layer (e.g., OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+
+    // Add a marker to the map
+    L.marker([15.422045, 73.980625]).addTo(map)
+        .bindPopup("Find us at GEC,Farmagudi");
+</script>
       </div>
 
       <div class="footer-section contact-form">
